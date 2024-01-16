@@ -1,0 +1,9 @@
+{
+  "profiles": {
+	"RTS": {
+	  "commandName": "Project",
+	  "commandLineArgs": "-e --path",
+	  "workingDirectory": "E:\\Godot\\Projects\\RTS"
+	}
+  }
+}

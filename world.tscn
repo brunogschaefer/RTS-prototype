@@ -1,6 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://dgkl321dkvmar"]
+[gd_scene load_steps=9 format=3 uid="uid://dgkl321dkvmar"]
 
-[ext_resource type="PackedScene" uid="uid://dt8pssfh773ys" path="res://controllers/camera/camera.tscn" id="1_gq06m"]
+[ext_resource type="PackedScene" uid="uid://bcbkkh6l5b3la" path="res://controllers/PlayerController.tscn" id="1_d8dbl"]
+[ext_resource type="PackedScene" uid="uid://bnplkitf5qwn1" path="res://entities/Units.tscn" id="2_xb2ux"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_fad66"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -13,6 +14,7 @@ sky_material = SubResource("ProceduralSkyMaterial_fad66")
 background_mode = 2
 sky = SubResource("Sky_6ovjc")
 tonemap_mode = 2
+sdfgi_enabled = true
 glow_enabled = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1rur1"]
@@ -24,13 +26,11 @@ size = Vector2(20, 20)
 [sub_resource type="BoxShape3D" id="BoxShape3D_p0bup"]
 size = Vector3(20, 1, 20)
 
-[sub_resource type="BoxMesh" id="BoxMesh_5me06"]
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_3e30w"]
-
 [node name="World" type="Node3D"]
 
-[node name="camera_base" parent="." instance=ExtResource("1_gq06m")]
+[node name="Units" parent="." groups=["units"] instance=ExtResource("2_xb2ux")]
+
+[node name="PlayerController" parent="." instance=ExtResource("1_d8dbl")]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_ijks6")
@@ -48,12 +48,3 @@ mesh = SubResource("PlaneMesh_nbcjl")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.244896, 0)
 shape = SubResource("BoxShape3D_p0bup")
-
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.502245, 0)
-mesh = SubResource("BoxMesh_5me06")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D2"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D2/StaticBody3D"]
-shape = SubResource("BoxShape3D_3e30w")

@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://bcbkkh6l5b3la"]
+
+[ext_resource type="PackedScene" uid="uid://dt8pssfh773ys" path="res://controllers/camera/CameraControl.tscn" id="1_fx277"]
+[ext_resource type="Script" path="res://controllers/PlayerController.cs" id="1_vtq87"]
+[ext_resource type="PackedScene" uid="uid://c0rlpg01rj8ym" path="res://controllers/selection/SelectionController.tscn" id="3_cpt7l"]
+
+[node name="PlayerController" type="Node"]
+script = ExtResource("1_vtq87")
+
+[node name="CameraControl" parent="." instance=ExtResource("1_fx277")]
+
+[node name="SelectionController" parent="." node_paths=PackedStringArray("camera") instance=ExtResource("3_cpt7l")]
+camera = NodePath("../CameraControl/camera_socket/camera")
+
+[editable path="CameraControl"]

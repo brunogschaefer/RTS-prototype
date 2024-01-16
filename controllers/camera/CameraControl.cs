@@ -1,6 +1,6 @@
 using Godot;
 
-public partial class camera_base : Node3D
+public partial class CameraControl : Node3D
 {
 	/*
 	 * Camera Movement WASD

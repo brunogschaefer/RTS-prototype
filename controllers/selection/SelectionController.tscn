@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3 uid="uid://c0rlpg01rj8ym"]
+
+[ext_resource type="Script" path="res://controllers/selection/SelectionController.cs" id="1_ikvoj"]
+[ext_resource type="Script" path="res://controllers/selection/SelectionInputHandler.cs" id="2_6g12v"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s8a6k"]
+bg_color = Color(0.168627, 0, 0.611765, 0.141176)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 0.603922)
+
+[node name="SelectionController" type="Node3D"]
+script = ExtResource("1_ikvoj")
+
+[node name="Input" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+script = ExtResource("2_6g12v")
+
+[node name="Panel" type="Panel" parent="Input"]
+layout_mode = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_s8a6k")
+
+[connection signal="boxSelection" from="Input" to="." method="onInputBoxSelection"]
+[connection signal="singleSelection" from="Input" to="." method="onInputSingleSelection"]
