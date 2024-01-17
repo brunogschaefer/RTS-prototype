@@ -41,7 +41,7 @@ public partial class SelectionInputHandler : Control
 
                 if (selectionBox.Size.Length() < 3)
                 {
-                    EmitSignal(SignalName.singleSelection, mousePosition);
+                    EmitSignal(SignalName.singleSelection, GetGlobalMousePosition());
                 } else
                 {
                     EmitSignal(SignalName.boxSelection, originPosition, mousePosition);

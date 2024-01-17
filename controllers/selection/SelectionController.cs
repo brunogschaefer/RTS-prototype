@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 public partial class SelectionController : Node3D
 {
+    [Signal]
+    public delegate void selectedUnitsEventHandler(Array<Units> unitsSelected);
 
     [Export]
     public Camera3D camera;
@@ -35,41 +37,41 @@ public partial class SelectionController : Node3D
                 unit.unselect();
             }
         }
-        
+        EmitSignal(SignalName.selectedUnits, unitsSelected);
     }
 
     public void onInputSingleSelection(Vector2 position)
     {
-        GD.Print(position);
+        Variant variant = projectRayCastFromCamera(position);
+        CollisionObject3D unitRigitBody = (CollisionObject3D) variant.AsGodotObject();
+
+        Node3D unit = unitRigitBody.GetParent<Node3D>();
+        if (unit.Name.Equals("Units"))
+        {
+            GD.Print("Sim");
+        } else
+        {
+
+            GD.Print("Não");
+        }
+
+
+        GD.Print(unitRigitBody);
 
     }
 
-    // to be implemented
-    //private void projectRayCastFromCamera()
-    //{
-    //    int rayLength = 300;
-    //    rayOrigin = camera.ProjectRayOrigin(position);
-    //    rayTarget = rayOrigin + camera.ProjectRayNormal(position) * rayLength;
+    private Variant projectRayCastFromCamera(Vector2 position)
+    {
+        int rayLength = 1000;
+        rayOrigin = camera.ProjectRayOrigin(position);
+        rayTarget = rayOrigin + camera.ProjectRayNormal(position) * rayLength;
 
 
-    //    PhysicsDirectSpaceState3D space = GetWorld3D().DirectSpaceState;
-    //    PhysicsRayQueryParameters3D rayQuery = new PhysicsRayQueryParameters3D();
-    //    rayQuery.From = rayOrigin;
-    //    rayQuery.To = rayTarget;
-    //    Dictionary intersectedRay = space.IntersectRay(rayQuery);
-
-    //    if (intersectedRay != null)
-    //    {
-    //        GD.Print(intersectedRay["collider"]);
-    //        Vector3 rayCollisionPoint = Position - (Vector3)intersectedRay["collider"];
-    //    }
-    //}
-
-    //private void getMouseCoordinates()
-    //{
-    //    Vector2 mousePos = GetViewport().GetMousePosition();
-    //    int rayLength = 100;
-    //    rayOrigin = camera.ProjectRayOrigin(mousePos);
-    //    rayTarget = rayOrigin + camera.ProjectRayNormal(mousePos) * rayLength;
-    //}
+        PhysicsDirectSpaceState3D space = GetWorld3D().DirectSpaceState;
+        PhysicsRayQueryParameters3D rayQuery = new PhysicsRayQueryParameters3D();
+        rayQuery.From = rayOrigin;
+        rayQuery.To = rayTarget;
+        Dictionary intersectedRay = space.IntersectRay(rayQuery);
+        return intersectedRay["collider"];
+    }
 }
